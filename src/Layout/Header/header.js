@@ -6,7 +6,9 @@ import '../Header/header.css';
 function Header() {
   return (
     <Fragment>
-      <header></header>
+      <header>
+        
+      </header>
     </Fragment>
   )
 }

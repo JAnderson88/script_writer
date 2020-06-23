@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
+//Routes
+import Home from './Routes/home';
+import Treatment from './Routes/treatment';
+import Timeline from './Routes/timeline';
+import Script from './Routes/script';
+import Statistics from './Routes/statistics';
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/treatment" component={Treatment} />
+      <Route path="/timeline" component={Timeline} />
+      <Route path="/script" component={Script} />
+      <Route path="/statistics" component={Statistics} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
