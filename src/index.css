@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root .lg_card{
+  padding: 3vh 4vw;
+  min-width: 65vw;
+  max-width: 65vw;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#root .lg_card *{
+  margin-bottom: 2vh;
+}
+
+#root .lg_card_header{
+  padding: 2vh 0vw 2vh 3vw;
+  font-size: 30px;
+}

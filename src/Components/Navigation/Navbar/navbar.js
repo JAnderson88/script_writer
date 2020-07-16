@@ -10,6 +10,7 @@ function Navbar() {
         <li><a href="/">Home</a></li>
         <li><a href="/treatment">Treatment</a></li>
         <li><a href="/timeline">Timeline</a></li>
+        <li><a href="/charachters">Charachters</a></li>
         <li><a href="/script">Script</a></li>
         <li><a href="/statistics">Statistics</a></li>
       </ul>
