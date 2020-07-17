@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 
+//Components
+import LogOut from '../../Auth/LogOut/logout';
 //CSS
 import '../Navbar/navbar.css';
 
@@ -13,6 +15,7 @@ function Navbar() {
         <li><a href="/charachters">Charachters</a></li>
         <li><a href="/script">Script</a></li>
         <li><a href="/statistics">Statistics</a></li>
+        <li><LogOut /></li>
       </ul>
     </Fragment>
   )
