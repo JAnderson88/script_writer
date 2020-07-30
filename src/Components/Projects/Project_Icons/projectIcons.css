@@ -1,0 +1,10 @@
+#projects_display .project_icon{
+  margin: 3vh 4vw;
+  border: 1px solid black;
+  min-width: 15vw;
+  max-width: 12vw;
+  min-height: 31vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

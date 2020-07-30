@@ -29,3 +29,7 @@ code {
   padding: 2vh 0vw 2vh 3vw;
   font-size: 30px;
 }
+
+.inline{
+  display: inline;
+}

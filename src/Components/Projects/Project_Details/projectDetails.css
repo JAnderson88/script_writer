@@ -1,0 +1,36 @@
+.container#project_detail_container{
+  border: 1px solid black;
+  min-width: 90vw;
+  max-width: 90vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#home_main #project_detail_container *{
+  margin: 5vh 0;
+}
+
+#home_main #project_detail_container input[name="name"]{
+  margin-bottom: 1vh !important;
+  text-align: center !important;
+  border: none !important;
+  min-width: 50vw;
+  max-width: 50vw;
+  font-size: 40px;
+}
+
+#project_detail_container .owner_container span{
+  margin-right: 2vw;
+  min-width: 8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#home_main #project_detail_container .owner_container{
+  display: flex;
+  min-width: 50vw;
+  max-width: 50vw;
+}

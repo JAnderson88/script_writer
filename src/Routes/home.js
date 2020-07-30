@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 
 //Components
@@ -6,10 +6,15 @@ import { Redirect } from 'react-router';
 import Header from '../Layout/Header/header';
 import HomeMain from '../Layout/Main/Home/home_main';
 import Footer from '../Layout/Footer/footer';
+//CSS
+
 
 
 function Home() {
-  if(!JSON.parse(sessionStorage.getItem("authCredentials")).email) return <Redirect to="/login" />
+  if (
+    sessionStorage.getItem("authCredentials") === null ||
+    !JSON.parse(sessionStorage.getItem("authCredentials")).email
+  ) return <Redirect to="/login" />
   return (
     <div className="layout" id="home">
       <Header />

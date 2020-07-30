@@ -1,0 +1,52 @@
+#home #addProjectPopup{
+  padding: 2vh 3vw;
+  border: 1px solid black;
+  background-color: white;
+  position: fixed;
+  min-width: 40vw;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 100;
+}
+
+#home #addProjectPopup > header{
+  margin-bottom: 10vh;
+  min-height: 5.5vh;
+  max-height: 5.5vh;
+  min-width: 40vw;
+  max-width: 40vw;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#home #addProjectPopup > footer{
+  margin-top: 0.5vh;
+  min-width: 40vw;
+  max-width: 40vw;
+  min-height: 8vh;
+  max-height: 8vh;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#home #addProjectPopup .project_container_form{
+  margin-bottom: 10vh;
+  min-width: 40vw;
+  max-width: 40vw;
+  display: flex;
+}
+
+#addProjectPopup .project_container_form span:first-child{
+  background-color: #efefef;
+  flex: 0.2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#addProjectPopup .project_container_form span:last-child{
+  background-color: #dfdfdf;
+  flex: 0.8;
+}
