@@ -33,3 +33,15 @@ code {
 .inline{
   display: inline;
 }
+
+@media (orientation: portrait){
+  #root .lg_card{
+    min-width: 90vw;
+    max-width: 90vw;
+  }
+
+  body{
+    overflow-x: hidden;
+  }
+}
+

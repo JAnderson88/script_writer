@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 //Components
-import ProjectContainer from '../../../Components/Projects/Project_Container/projectContainer';
 import ProjectDetails from '../../../Components/Projects/Project_Details/projectDetails';
 import ProjectPopup from '../../../Components/Projects/Project_Popup/projectPopup';
 import ProjectIcons from '../../../Components/Projects/Project_Icons/projectIcons';
@@ -24,7 +23,15 @@ function HomeMain() {
 
   const displayIcons = projects => {
     return projects.map((project, index) => {
-      return <ProjectIcons name={project.name} key={index} identifier={project._id} owner={project.owner} setProjectDetails={setProjectDetails}/>
+      console.log(project);
+      return <ProjectIcons 
+        name={project.name} 
+        key={index} 
+        identifier={project.identifier} 
+        owner={project.owner} 
+        setProjectDetails={setProjectDetails} 
+        getProjectDetail={getProjectDetail}
+      />
     })
   }
 
@@ -42,6 +49,28 @@ function HomeMain() {
     return data.projects;
   }
 
+  const getProjectDetail = async () => {
+    console.log("running getProjectDeatail");
+    const response = await fetch(`http://localhost:3000/api/project?project=${JSON.parse(sessionStorage.authCredentials).activeProject}`, {
+      method: "GET",
+      cors: "cors",
+      headers: new Headers({
+        'content-type': 'application/json',
+        'authorization': JSON.parse(sessionStorage.authCredentials).session
+      })
+    });
+    const data = await response.json();
+    console.log(data.projects);
+    console.log(data.message);
+    const dateString = data.projects.createdOn.substring(0, 10)
+    setProjectDetails({
+      name: data.projects.name,
+      createdOn: dateString,
+      owner: data.projects.owner,
+      identifier: data.projects.identifier
+    })
+  }
+
   useEffect(() => {
     updateProjects()
   }, []);
@@ -52,13 +81,11 @@ function HomeMain() {
     manageAddProjectPopup={manageAddProjectPopup}
     setProjects={setProjects}
   />) : "";
-  const projectDetail = (projectDetails.name || projectDetails.name === "") ? <ProjectDetails projectDetails={projectDetails} setProjectDetails={setProjectDetails}/> : "";
+  const projectDetail = (projectDetails.name || projectDetails.name === "") ? <ProjectDetails projectDetails={projectDetails} setProjectDetails={setProjectDetails} getProjectDetail={getProjectDetail}/> : "";
   const projectIcons = (projects.length > 0) ? displayIcons(projects) : "";
 
   return (
     <div className="main" id="home_main">
-      {/* {projectContainer} */}
-      {/* <ProjectContainer projects={projects} setProjects={setProjects} setProjectDetails={setProjectDetails}/> */}
       {popup}
       <div className="container" id="project_container">
         <header>

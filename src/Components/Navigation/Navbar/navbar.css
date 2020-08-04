@@ -1,19 +1,49 @@
-.layout header ul{
+.layout > header ul{
   bottom: 0;
   display: flex;
   flex-direction: row;
   min-width: 75vw;
   max-width: 75vw;
   min-height: 12vh;
-  max-height: 12vh;
   border: 1px solid black;
   margin: 0;
 }
 
-.layout header li{
+.layout > header li{
   display: flex;
   justify-content: center;
   align-items: center;
   list-style-type: none;
   flex: 1;
+}
+
+.layout > header > footer{
+  min-width: 100vw;
+  max-width: 100vw;
+}
+
+.layout > header .bar{
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+}
+
+@media (orientation: portrait) and (max-width: 415px){
+  .layout > header ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .open{
+    position: absolute;
+    top: 30vh;
+    background-color: rgb(209, 209, 209);
+  }
+  .layout > header li{
+    margin-bottom: 1vh;
+  }
 }

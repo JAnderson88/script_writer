@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
-
 //Components
 //Layout
 import Header from '../Layout/LogIn/header';
@@ -10,7 +9,7 @@ import Footer from '../Layout/LogIn/footer';
 
 
 function Index() {
-  const [isAuthenticated, setAuthentication] = useState(sessionStorage.getItem("authCredentials"));
+  const [isAuthenticated, ] = useState(sessionStorage.getItem("authCredentials"));
 
   if(isAuthenticated) return <Redirect to="/home" />
 

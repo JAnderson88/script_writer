@@ -6,3 +6,9 @@
     justify-content: center;
     align-items: center;
 }
+
+@media (orientation: landscape) and (max-height: 281px){
+  #login_main{
+      margin: 6vh 0vw;
+  }
+}

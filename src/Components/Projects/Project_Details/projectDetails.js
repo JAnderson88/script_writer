@@ -6,26 +6,6 @@ import './projectDetails.css';
 
 function ProjectDetails(props) {
 
-  const getProjectDetail = async () => {
-    console.log("running getProjectDeatail");
-    const response = await fetch(`http://localhost:3000/api/project?project=${JSON.parse(sessionStorage.authCredentials).activeProject}`, {
-      method: "GET",
-      cors: "cors",
-      headers: new Headers({
-        'content-type': 'application/json',
-        'authorization': JSON.parse(sessionStorage.authCredentials).session
-      })
-    });
-    const data = await response.json();
-    console.log(data.message);
-    const dateString = data.project.createdOn.substring(0, 10)
-    props.setProjectDetails({
-      name: data.project.name,
-      createdOn: dateString,
-      owner: data.owner
-    })
-  }
-
   const editProjectDetails = async () => {
     console.log("Editing Project Details");
     const response = await fetch(`http://localhost:3000/api/project/edit`, {
@@ -97,7 +77,7 @@ function ProjectDetails(props) {
   }
 
   useEffect(() => {
-    getProjectDetail()
+    props.getProjectDetail();
   }, [])
 
   return (

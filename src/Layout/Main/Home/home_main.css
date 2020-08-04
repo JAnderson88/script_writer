@@ -18,8 +18,8 @@
 .container#project_container header{
   padding: 0vh 4vw;
   border-bottom: 1px solid black;
-  min-width: 75vw;
-  max-width: 75vw;
+  min-width: 77vw;
+  max-width: 77vw;
   min-height: 7vh;
   max-height: 7vh;
   display: flex;
@@ -29,8 +29,21 @@
 }
 
 .main_container#projects_display{
-  min-width: 75vw;
-  max-width: 75vw;
+  min-width: 77w;
+  max-width: 77vw;
   display: flex;
   flex-wrap: wrap;
+}
+
+@media (orientation: portrait) and (max-width: 415px){
+  .main_container#projects_display{
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 415px){
+  .container#project_container{
+    min-height: 60vh;
+  }
 }

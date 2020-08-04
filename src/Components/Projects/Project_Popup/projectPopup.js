@@ -30,6 +30,7 @@ function ProjectPopup(props) {
     let session = JSON.parse(sessionStorage.getItem("authCredentials"));
 
     session.activeProject = data.activeProject;
+    localStorage.activeProject = data.activeProject;
     console.log(data.message);
     projectTemps.push(newProject)
 
