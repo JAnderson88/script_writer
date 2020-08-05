@@ -8,11 +8,19 @@
   align-items: center;
 }
 
-#home_main #project_detail_container *{
+#home_main #project_detail_container > *{
   margin: 5vh 0;
+  min-width: 60vw;
+  max-width: 60vw;
 }
 
-#home_main #project_detail_container input[name="name"]{
+#home_main #project_detail_container > .container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#project_detail_container input[name="name"]{
   margin-bottom: 1vh !important;
   text-align: center !important;
   border: none !important;
@@ -21,7 +29,7 @@
   font-size: 40px;
 }
 
-#project_detail_container .owner_container span{
+#project_detail_container .container > span{
   margin-right: 2vw;
   min-width: 8vw;
   display: flex;
@@ -29,7 +37,12 @@
   justify-content: center;
 }
 
-#home_main #project_detail_container .owner_container{
+#project_detail_container .container .select-dropdown{
+  min-width: 51vw !important;
+  max-width: 51vw !important;
+}
+
+#home_main #project_detail_container .screen_type_container{
   display: flex;
   min-width: 50vw;
   max-width: 50vw;

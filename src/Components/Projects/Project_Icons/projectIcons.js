@@ -10,7 +10,6 @@ function ProjectIcons(props){
     const authCredentials = JSON.parse(sessionStorage.getItem("authCredentials"));
     authCredentials.activeProject = props.identifier;
     localStorage.activeProject = props.identifier;
-    console.log(authCredentials);
     sessionStorage.setItem("authCredentials", JSON.stringify(authCredentials));
     await props.getProjectDetail();
   }

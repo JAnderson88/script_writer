@@ -23,7 +23,6 @@ function HomeMain() {
 
   const displayIcons = projects => {
     return projects.map((project, index) => {
-      console.log(project);
       return <ProjectIcons 
         name={project.name} 
         key={index} 
@@ -67,8 +66,10 @@ function HomeMain() {
       name: data.projects.name,
       createdOn: dateString,
       owner: data.projects.owner,
-      identifier: data.projects.identifier
-    })
+      identifier: data.projects.identifier,
+      scriptType: data.projects.scriptType,
+      scriptOptions: data.projects.scriptOptions
+    });
   }
 
   useEffect(() => {
@@ -81,7 +82,12 @@ function HomeMain() {
     manageAddProjectPopup={manageAddProjectPopup}
     setProjects={setProjects}
   />) : "";
-  const projectDetail = (projectDetails.name || projectDetails.name === "") ? <ProjectDetails projectDetails={projectDetails} setProjectDetails={setProjectDetails} getProjectDetail={getProjectDetail}/> : "";
+  const projectDetail = (projectDetails.name || projectDetails.name === "") ? 
+    <ProjectDetails 
+     projectDetails={projectDetails} 
+     setProjectDetails={setProjectDetails} 
+     getProjectDetail={getProjectDetail}
+    /> : "";
   const projectIcons = (projects.length > 0) ? displayIcons(projects) : "";
 
   return (
