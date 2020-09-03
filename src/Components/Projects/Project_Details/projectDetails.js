@@ -40,10 +40,27 @@ function ProjectDetails(props) {
         'content-type': 'application/json',
         'authorization': JSON.parse(sessionStorage.authCredentials).session
       }),
-      body: JSON.stringify({ project: JSON.parse(sessionStorage.authCredentials).activeProject, })
+      body: JSON.stringify({ project: JSON.parse(sessionStorage.authCredentials).activeProject })
     });
     const data = await response.json();
     console.log(data.message);
+    sessionStorage.removeItem("")
+    updateAuthCredentials('activeProject');
+    updateAuthCredentials('projectName');
+  }
+
+  const updateAuthCredentials = removedElement => {
+    if(sessionStorage.authCredentials){
+      const authCredentials = JSON.parse(sessionStorage.authCredentials);
+      const temp = {};
+      Object.keys(authCredentials).forEach(key => {
+        // console.log(key);
+        // console.log(removedElement);
+        if(key !== removedElement) temp[key] = authCredentials[key]
+      });
+      console.log(temp);
+      sessionStorage.setItem('authCredentials', JSON.stringify(temp));
+    }
   }
 
   const handleChange = e => {

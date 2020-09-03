@@ -59,7 +59,6 @@ function HomeMain() {
       })
     });
     const data = await response.json();
-    console.log(data.projects);
     console.log(data.message);
     const dateString = data.projects.createdOn.substring(0, 10)
     setProjectDetails({
@@ -82,7 +81,12 @@ function HomeMain() {
     manageAddProjectPopup={manageAddProjectPopup}
     setProjects={setProjects}
   />) : "";
-  const projectDetail = (projectDetails.name || projectDetails.name === "") ? 
+
+  if(JSON.parse(sessionStorage.authCredentials).activeProject && !projectDetails.name){
+    getProjectDetail();
+  }
+
+  const projectDetail = (projectDetails.name || projectDetails.name === "" ) ? 
     <ProjectDetails 
      projectDetails={projectDetails} 
      setProjectDetails={setProjectDetails} 

@@ -18,6 +18,7 @@ function Logout() {
     });
     const data = await response.json();
     console.log(data);
+    localStorage.removeItem('activeProject');
     sessionStorage.removeItem('authCredentials');
     setLoggedOut(true);
   }

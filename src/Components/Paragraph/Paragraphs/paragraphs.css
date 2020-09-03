@@ -1,0 +1,52 @@
+#treatment_main #paragraph_manager .paragraph_container{
+  margin: 5vh 0vw;
+  border: 1px solid black;
+  min-width: 80%;
+  max-width: 80%;
+  min-height: 35vh;
+}
+
+.paragraph_container.active_paragraph{
+  min-width: 90% !important;
+  max-width: 90% !important;
+  min-height: 45vh !important;
+  transition: all 0.5s;
+}
+
+#paragraph_manager .paragraph_container > header{
+  border-bottom: 1px solid black;
+  min-height: 8vh;
+  display: flex;
+}
+
+.paragraph_container > header > *{
+  flex: 1;
+}
+
+.paragraph_container > header > input{
+  border: none;
+}
+
+.paragraph_container > header .button_container{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.paragraph_container > header .button_container button{
+  margin: 0vh 0.9vw;
+  min-height: 5vh;
+  max-height: 5vh;
+  min-width: 3vw;
+}
+
+.paragraph_container .body textarea{
+  min-height: 24.5vh;
+  border: none;
+  resize: vertical;
+  overflow: auto;
+}
+
+.body textarea::-webkit-scrollbar{
+  display: none;
+}

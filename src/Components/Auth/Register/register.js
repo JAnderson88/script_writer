@@ -29,7 +29,7 @@ function Register(){
       })
     });
     const data = await response.json();
-    console.log(data)
+    console.log(data.message);
     sessionStorage.setItem('authCredentials', JSON.stringify(data.sessionInfo));
     setAuthentication(true);
   }

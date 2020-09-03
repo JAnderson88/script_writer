@@ -13,7 +13,7 @@ import Footer from '../Layout/Footer/footer';
 function Home() {
   if (
     sessionStorage.getItem("authCredentials") === null ||
-    !JSON.parse(sessionStorage.getItem("authCredentials")).email
+    !JSON.parse(sessionStorage.getItem("authCredentials")).session
   ) return <Redirect to="/login" />
   return (
     <div className="layout" id="home">

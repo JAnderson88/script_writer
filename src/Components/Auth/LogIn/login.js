@@ -29,7 +29,6 @@ function LogIn() {
       })
     });
     const data = await response.json();
-    // console.log(data)
     sessionStorage.setItem('authCredentials', JSON.stringify(data.sessionInfo));
     setAuthentication(true);
   }

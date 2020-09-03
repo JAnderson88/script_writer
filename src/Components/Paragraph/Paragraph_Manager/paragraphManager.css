@@ -1,0 +1,9 @@
+#treatment_main #paragraph_manager{
+  border: 1px solid black;
+  margin: 8vh 0vw 0vh 12vw;
+  min-width: 80vw;
+  min-height: 120vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

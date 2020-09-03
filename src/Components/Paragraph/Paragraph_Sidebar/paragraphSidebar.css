@@ -1,0 +1,13 @@
+#treatment_main #paragraph_sidebar{
+  border: 1px solid black;
+  position: fixed;
+  left: 0;
+  min-width: 7vw;
+  min-height: 45vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#treatment_main #paragraph_sidebar > button {
+  flex: 1;
+}

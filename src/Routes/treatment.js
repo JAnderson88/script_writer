@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Redirect } from 'react-router';
 
 //Components
 //Layout
@@ -8,8 +9,12 @@ import Footer from '../Layout/Footer/footer';
 
 
 function Treatment(){
+  if (
+    sessionStorage.getItem("authCredentials") === null ||
+    !JSON.parse(sessionStorage.getItem("authCredentials")).session
+  ) return <Redirect to="/login" />
   return(
-    <div class="layout" id="treatment">
+    <div className="layout" id="treatment">
       <Header />
       <TreatmentMain />
       <Footer />
