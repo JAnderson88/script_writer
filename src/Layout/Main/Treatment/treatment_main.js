@@ -139,7 +139,7 @@ function TreatmentMain() {
         removeParagraph={removeParagraph} 
       /> 
     : '';
-  }
+  };
 
   return (
     <div className="main" id="treatment_main">
@@ -149,7 +149,7 @@ function TreatmentMain() {
       {setScrollBarVisibility()}
       {displayParagraphManager()}
     </div>
-  )
-}
+  );
+};
 
 export default memo(TreatmentMain);
