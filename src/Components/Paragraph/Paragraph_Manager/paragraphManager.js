@@ -13,12 +13,13 @@ function ParagraphManager(props){
     if(Object.keys(props.paragraphs).length === 0){
       return '';
     } else {
-      return props.paragraphs.map(paragraph => {
+      return props.paragraphs.map((paragraph, index) => {
         return <Paragraph 
           body={paragraph.body} 
           tags={paragraph.tags} 
           key={paragraph.paragraphID} 
           id={paragraph.paragraphID} 
+          index={index}
           activeParagraph={props.activeParagraph}
           setActiveParagraph={props.setActiveParagraph}
           updateParagraph={props.updateParagraph} 

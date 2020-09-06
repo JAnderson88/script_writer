@@ -1,9 +1,11 @@
 #treatment_main #paragraph_manager .paragraph_container{
-  margin: 5vh 0vw;
+  margin: 1vh 0vw 5vh 0vw;
   border: 1px solid black;
   min-width: 80%;
   max-width: 80%;
   min-height: 35vh;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
 }
 
 .paragraph_container.active_paragraph{
@@ -13,10 +15,23 @@
   transition: all 0.5s;
 }
 
+.paragraph_container.unactive_paragraph{
+  border: none !important; 
+  min-width: 80%;
+  max-width: 80%;
+  margin: 1vh 0 0.5vh 0 !important;
+  min-height: auto !important;
+}
+
 #paragraph_manager .paragraph_container > header{
   border-bottom: 1px solid black;
   min-height: 8vh;
   display: flex;
+  font-family: 'Courier Prime', monospace !important;
+}
+
+.paragraph_container.unactive_paragraph > header{
+  display: none !important;
 }
 
 .paragraph_container > header > *{
@@ -40,11 +55,25 @@
   min-width: 3vw;
 }
 
-.paragraph_container .body textarea{
+.paragraph_container.active_paragraph .body textarea{
   min-height: 24.5vh;
   border: none;
   resize: vertical;
   overflow: auto;
+  font-family: 'Courier Prime', monospace !important;
+}
+.paragraph_container.unactive_paragraph .body{
+  min-height: 0vh !important;
+  height: auto !important;
+}
+
+.paragraph_container.unactive_paragraph .body textarea{
+  /* min-height: 0vh !important; */
+  /* height: auto !important; */
+  border: none;
+  font-family: 'Courier Prime', monospace !important;
+  resize: none;
+  overflow: hidden;
 }
 
 .body textarea::-webkit-scrollbar{

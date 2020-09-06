@@ -52,6 +52,7 @@ function TreatmentMain() {
     });
     const data = await response.json();
     console.log(data.message);
+    setParagraphs(data.treatment.paragraphs);
   }
 
   const getTreatment = async () => {
