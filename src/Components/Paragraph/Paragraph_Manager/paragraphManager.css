@@ -1,7 +1,7 @@
 #treatment_main #paragraph_manager{
   border: 1px solid black;
   margin: 8vh 0vw 0vh 12vw;
-  padding-top: 5vh;
+  padding: 13vh 0;
   min-width: 80vw;
   min-height: 120vh;
   display: flex;

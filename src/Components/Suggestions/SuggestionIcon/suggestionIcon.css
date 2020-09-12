@@ -1,0 +1,26 @@
+.paragraph_container.active_paragraph .suggestion_icon_container .suggestion_icon{
+  border: 1px solid black;
+  width: 33%;
+  display: flex;
+  align-items: center;
+}
+
+.paragraph_container.unactive_paragraph .suggestion_icon_container{
+  display: none;
+}
+
+.suggestion_icon_container .suggestion_icon  div:nth-child(1){
+  flex: 0.15;
+  margin: 0 1vw;
+}
+
+.suggestion_icon_container .suggestion_icon  div:nth-child(2){
+  flex: 1.4;
+}
+
+.suggestion_icon_container .suggestion_icon  div:nth-child(3){
+  flex: 0.4;
+  display: flex;
+  align-items: center;
+}
+

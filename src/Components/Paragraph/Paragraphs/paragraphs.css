@@ -62,14 +62,13 @@
   overflow: auto;
   font-family: 'Courier Prime', monospace !important;
 }
+
 .paragraph_container.unactive_paragraph .body{
   min-height: 0vh !important;
   height: auto !important;
 }
 
 .paragraph_container.unactive_paragraph .body textarea{
-  /* min-height: 0vh !important; */
-  /* height: auto !important; */
   border: none;
   font-family: 'Courier Prime', monospace !important;
   resize: none;
@@ -78,4 +77,11 @@
 
 .body textarea::-webkit-scrollbar{
   display: none;
+}
+
+.paragraph_container.active_paragraph .suggestion_icon_container{
+  border-top: 1px solid black;
+  min-height: 10vh;
+  width: 100%;
+  display: flex;
 }

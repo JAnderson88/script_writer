@@ -9,7 +9,7 @@ import Footer from '../Layout/Footer/footer';
 
 function Timeline() {
   return (
-    <div class="layout" id="timeline">
+    <div className="layout" id="timeline">
       <Header />
       <TimelineMain />
       <Footer />

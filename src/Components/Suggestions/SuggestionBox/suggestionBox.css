@@ -1,0 +1,10 @@
+#suggestion_container .suggestion_box{
+  margin: 3vh 4vw;
+  border: 1px solid black;
+  min-width: 15vw;
+  max-width: 15vw;
+  min-height: 31vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
