@@ -32,8 +32,9 @@ function TreatmentMain() {
     });
     const data = await response.json();
     console.log(data.message);
-    localStorage.treatment = data.treatment;
+    localStorage.treatment = JSON.stringify(data.treatment);
     setParagraphs(data.treatment.paragraphs);
+    setActiveParagraph(data.treatment.paragraphs[data.treatment.paragraphs.length -1].paragraphID);
   }
 
   const updateParagraph = async (tags = "", body = "", id) => {
@@ -106,12 +107,12 @@ function TreatmentMain() {
     if (sidebarOffset === null) setSidebarOffset(document.getElementById("paragraph_sidebar").offsetTop);
     if (sidebarHeight === null) setSidebarHeight(document.getElementById("paragraph_sidebar").clientHeight);
     window.addEventListener('scroll', onWindowScroll);
-    if (Object.keys(paragraphs).length === 0) await getTreatment();
+    if (paragraphs && Object.keys(paragraphs).length === 0) await getTreatment();
     return () => { window.addEventListener('scroll', onWindowScroll) };
   }
 
   useEffect(() => {
-    if (Object.keys(paragraphs).length > 0 && activeParagraph === "") {
+    if (paragraphs && Object.keys(paragraphs).length > 0 && activeParagraph === "") {
       setActiveParagraph(paragraphs[0].paragraphID);
     }
     componentDidMount();
@@ -130,7 +131,7 @@ function TreatmentMain() {
   };
 
   const displayParagraphManager = () => {
-    return (paragraphs.length > 0) ? 
+    return (paragraphs && paragraphs.length > 0) ? 
       <ParagraphManager 
         paragraphs={paragraphs} 
         setActiveParagraph={setActiveParagraph} 

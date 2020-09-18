@@ -17,7 +17,6 @@ function HomeMain() {
   }
 
   const manageAddProjectPopup = () => {
-    console.log("Opening/Clogsing Popup")
     setPopup((openPopup) ? false : true);
   }
 
@@ -60,7 +59,7 @@ function HomeMain() {
     });
     const data = await response.json();
     console.log(data.message);
-    const dateString = data.projects.createdOn.substring(0, 10)
+    const dateString = data.projects.createdOn.substring(0, 10);
     setProjectDetails({
       name: data.projects.name,
       createdOn: dateString,
@@ -72,7 +71,7 @@ function HomeMain() {
   }
 
   useEffect(() => {
-    updateProjects()
+    updateProjects();
   }, []);
 
   const popup = (openPopup) ?
@@ -107,7 +106,7 @@ function HomeMain() {
       </div>
       {projectDetail}
     </div>
-  )
+  );
 }
 
 export default HomeMain;

@@ -10,7 +10,6 @@ function ProjectContainer(props) {
   const [openPopup, setPopup] = useState(false);
 
   const manageAddProjectPopup = () => {
-    console.log("Opening/Clogsing Popup")
     setPopup((openPopup) ? false : true);
   }
 

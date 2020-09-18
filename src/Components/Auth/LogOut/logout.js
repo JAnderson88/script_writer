@@ -1,6 +1,10 @@
 import React, { Fragment, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
+//Components
+//CSS
+import './logout.css';
+
 function Logout() {
   const [isLoggedOut, setLoggedOut] = useState(false);
 
@@ -26,7 +30,7 @@ function Logout() {
   if(isLoggedOut) return <Redirect to="/" />
   return (
     <Fragment>
-      <a onClick={submitLogout}>Log Out</a>
+      <a id="logout" onClick={submitLogout}>Log Out</a>
     </Fragment>
   );
 }

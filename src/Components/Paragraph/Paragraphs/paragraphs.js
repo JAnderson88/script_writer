@@ -1,6 +1,7 @@
 import React, { useState, useEffect, memo, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faTimes, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import M from 'materialize-css';
 
 //Components
 import SuggestionIcon from '../../Suggestions/SuggestionIcon/suggestionIcon';
@@ -18,7 +19,7 @@ function Paragraph(props) {
     updateBody(props.body);
     updateTag(props.tag);
     resizeTextarea();
-    // console.log(props.id);
+    M.AutoInit();
   }, [props]);
 
   const handleChange = (e) => {
@@ -32,7 +33,9 @@ function Paragraph(props) {
   };
 
   const updateManager = e => {
-    props.updateParagraph(tag, body, props.id);
+    if (tag !== props.tag || body !== props.body){
+      props.updateParagraph(tag, body, props.id);
+    }
   }
 
   const resizeTextarea = () => {
@@ -54,7 +57,13 @@ function Paragraph(props) {
     return props.addSuggestions(props.id, classification, selectedText);
   }
 
-  const displayActiveParagraph = (props.id === props.activeParagraph) ? 'paragraph_container active_paragraph locked' : 'paragraph_container unactive_paragraph locked';
+  const displayActiveParagraph = () =>{
+    let paragraphClass = 'paragraph_container';
+    paragraphClass += (props.id === props.activeParagraph) ? ' active_paragraph locked' : ' unactive_paragraph locked';
+    paragraphClass += (body === '') ? ' empty' : '';
+    return paragraphClass;
+  }
+
   const renderSuggestionButtons = (locked) ?
     <Fragment>
       <button className="plot_point" disabled>P</button>
@@ -79,6 +88,7 @@ function Paragraph(props) {
         row.push(
           <SuggestionIcon
             id={props.suggestions[currentElement]._id}
+            key={currentElement}
             paragraph={props.id}
             classification={props.suggestions[currentElement].classification}
             data={props.suggestions[currentElement].data}
@@ -100,7 +110,7 @@ function Paragraph(props) {
 
   return (
     <Fragment>
-      <div className={displayActiveParagraph}>
+      <div className={displayActiveParagraph()}>
         <header>
           <input type="text" className="tags" value={tag} onChange={handleChange} onFocus={() => { props.setActiveParagraph(props.id) }} onBlur={updateManager} />
           <div className="button_container">

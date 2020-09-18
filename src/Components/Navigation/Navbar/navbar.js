@@ -17,7 +17,6 @@ function Navbar() {
 
   const renderNavigationBar = () => {
     if (navigationBarOpen) {
-      // console.log("Navigation is open")
       return (
         <div className="open">
           <ul className="navbar">

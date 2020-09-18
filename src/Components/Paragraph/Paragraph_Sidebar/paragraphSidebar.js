@@ -26,7 +26,7 @@ function ParagraphSidebar({ paragraphs, activeParagraph, setActiveParagraph, add
   }
 
   const removeParagraphEventHandler = async () => {
-    await removeParagraph();
+    await removeParagraph(activeParagraph);
     updateComponentDimensions();
   }
 
@@ -45,7 +45,7 @@ function ParagraphSidebar({ paragraphs, activeParagraph, setActiveParagraph, add
       <button id="cycle_down" onClick={(e) => { changeActiveParagraph("down", e) }}>
         <FontAwesomeIcon icon={faArrowDown} />
       </button>
-      <button id="delete_paragraph" onClick={removeParagraph}>
+      <button id="delete_paragraph" onClick={removeParagraphEventHandler}>
         <FontAwesomeIcon icon={faTimes} />
       </button>
     </div>

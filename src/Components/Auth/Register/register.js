@@ -16,7 +16,7 @@ function Register(){
     if (event.target.name === "password") setPasswordValue(event.target.value)
   } 
 
-  const submitRegister = async () => {
+  const submitRegister = async e => {
     const response = await fetch('http://localhost:3000/api/user/add', {
       method: 'POST',
       mode: 'cors',
@@ -29,12 +29,18 @@ function Register(){
       })
     });
     const data = await response.json();
+    console.log(data);
     console.log(data.message);
-    sessionStorage.setItem('authCredentials', JSON.stringify(data.sessionInfo));
-    setAuthentication(true);
+    if(response.status === 200){
+      sessionStorage.setItem('authCredentials', JSON.stringify(data.sessionInfo));
+      setAuthentication(true);
+    } else {
+      console.log(data);
+      //Add notification to user that logIn was unsuccesful
+    }
   }
 
-  if(isAuthenticated) return <Redirect to="/home" />
+  if (isAuthenticated) return <Redirect to="/home" />
 
   return (
     <div className="lg_card" id="register_card">

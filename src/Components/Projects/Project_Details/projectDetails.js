@@ -6,7 +6,6 @@ import M from 'materialize-css';
 import './projectDetails.css';
 
 function ProjectDetails(props) {
-  console.log(props.projectDetails);
 
   const editProjectDetails = async () => {
     console.log("Editing Project Details");
@@ -44,7 +43,6 @@ function ProjectDetails(props) {
     });
     const data = await response.json();
     console.log(data.message);
-    sessionStorage.removeItem("")
     updateAuthCredentials('activeProject');
     updateAuthCredentials('projectName');
   }
@@ -54,8 +52,6 @@ function ProjectDetails(props) {
       const authCredentials = JSON.parse(sessionStorage.authCredentials);
       const temp = {};
       Object.keys(authCredentials).forEach(key => {
-        // console.log(key);
-        // console.log(removedElement);
         if(key !== removedElement) temp[key] = authCredentials[key]
       });
       console.log(temp);

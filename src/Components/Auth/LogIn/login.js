@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom';
 
 //Componenets
 //CSS
-
 import '../LogIn/login.css';
 
 function LogIn() {
@@ -29,8 +28,13 @@ function LogIn() {
       })
     });
     const data = await response.json();
-    sessionStorage.setItem('authCredentials', JSON.stringify(data.sessionInfo));
-    setAuthentication(true);
+    console.log(data.message);
+    if(response.status === 200){
+      sessionStorage.setItem('authCredentials', JSON.stringify(data.sessionInfo));
+      setAuthentication(true);
+    } else {
+      //Add notification to user that logIn was unsuccesful
+    }
   }
 
   if (isAuthenticated) return <Redirect to="/home" />

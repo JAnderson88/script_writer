@@ -77,7 +77,6 @@ function ParagraphManager(props) {
 
   useEffect(() => {
     getSuggestions();
-    console.log(suggestions);
   }, []);
 
   const displayParagraphs = () => {

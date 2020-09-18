@@ -6,9 +6,6 @@ import './suggestionIcon.css';
 
 function SuggestionIcon({ id, paragraph, classification, data, removeSuggestions }) {
 
-  useEffect(()=>{
-    console.log(id);
-  }, [])
   const displayClassIcon = (classification === 'plot_point') ? 'P' : 'C';
   const displayTruncInfo = (data.length > 25) ? (`${data.substring(0, 25)}...`) : data;
 
