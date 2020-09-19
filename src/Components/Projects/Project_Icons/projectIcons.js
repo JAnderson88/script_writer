@@ -4,19 +4,20 @@ import React, { useState, Fragment } from 'react';
 //CSS
 import './projectIcons.css';
 
-function ProjectIcons(props){
+function ProjectIcons({name, identifier, setActiveProject, getProjectDetail }){
 
-  const setActiveProject = async e => {
+  const manageActiveProject = async e => {
     const authCredentials = JSON.parse(sessionStorage.getItem("authCredentials"));
-    authCredentials.activeProject = props.identifier;
-    authCredentials.projectName = props.name;
+    authCredentials.activeProject = identifier;
+    authCredentials.projectName = name;
     sessionStorage.setItem("authCredentials", JSON.stringify(authCredentials));
-    await props.getProjectDetail();
+    setActiveProject(identifier);
+    await getProjectDetail();
   }
 
   return(
-    <div className="project_icon" onClick={setActiveProject}>
-      {props.name}
+    <div className="project_icon" onClick={manageActiveProject}>
+      {name}
     </div>
   )
 }

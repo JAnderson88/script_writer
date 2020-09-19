@@ -8,7 +8,7 @@ import './projectDetails.css';
 function ProjectDetails(props) {
 
   const editProjectDetails = async () => {
-    console.log("Editing Project Details");
+    console.log("Running editProjectDetails");
     const response = await fetch(`http://localhost:3000/api/project/edit`, {
       method: "POST",
       cors: "cors",
@@ -39,12 +39,23 @@ function ProjectDetails(props) {
         'content-type': 'application/json',
         'authorization': JSON.parse(sessionStorage.authCredentials).session
       }),
-      body: JSON.stringify({ project: JSON.parse(sessionStorage.authCredentials).activeProject })
+      body: JSON.stringify({ project: props.activeProject })
     });
     const data = await response.json();
     console.log(data.message);
+
     updateAuthCredentials('activeProject');
     updateAuthCredentials('projectName');
+
+    const temp = [];
+    props.projects.forEach(project => {
+      if (project.identifier !== props.activeProject) {
+        temp.push(project);
+      }
+    });
+    props.setProjects(temp);
+    props.setActiveProject('');
+    props.setProjectDetails({});
   }
 
   const updateAuthCredentials = removedElement => {
@@ -120,7 +131,7 @@ function ProjectDetails(props) {
   useEffect(() => {
     M.AutoInit();
     setSelectedOptionForScreenType();
-    props.getProjectDetail();
+    if (props.activeProject !== '') props.getProjectDetail();
   }, [])
 
   return (

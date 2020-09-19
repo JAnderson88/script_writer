@@ -10,10 +10,11 @@ import './home_main.css';
 function HomeMain() {
   const [projects, setProjects] = useState([]);
   const [projectDetails, setProjectDetails] = useState({});
+  const [activeProject, setActiveProject] = useState('');
   const [openPopup, setPopup] = useState(false);
 
   const updateProjects = async () => {
-    setProjects(await fetchProjects())
+    setProjects(await fetchProjects());
   }
 
   const manageAddProjectPopup = () => {
@@ -22,12 +23,12 @@ function HomeMain() {
 
   const displayIcons = projects => {
     return projects.map((project, index) => {
-      return <ProjectIcons 
-        name={project.name} 
-        key={index} 
-        identifier={project.identifier} 
-        owner={project.owner} 
-        setProjectDetails={setProjectDetails} 
+      return <ProjectIcons
+        name={project.name}
+        key={index}
+        identifier={project.identifier}
+        owner={project.owner}
+        setActiveProject={setActiveProject}
         getProjectDetail={getProjectDetail}
       />
     })
@@ -39,7 +40,7 @@ function HomeMain() {
       method: "GET",
       cors: "cors",
       headers: new Headers({
-        'content-type': 'application/json', 
+        'content-type': 'application/json',
         'authorization': JSON.parse(sessionStorage.authCredentials).session
       })
     });
@@ -48,8 +49,8 @@ function HomeMain() {
   }
 
   const getProjectDetail = async () => {
-    console.log("running getProjectDeatail");
-    const response = await fetch(`http://localhost:3000/api/project?project=${JSON.parse(sessionStorage.authCredentials).activeProject}`, {
+    console.log("running getProjectDetail");
+    const response = await fetch(`http://localhost:3000/api/project?project=${activeProject}`, {
       method: "GET",
       cors: "cors",
       headers: new Headers({
@@ -59,15 +60,17 @@ function HomeMain() {
     });
     const data = await response.json();
     console.log(data.message);
-    const dateString = data.projects.createdOn.substring(0, 10);
-    setProjectDetails({
-      name: data.projects.name,
-      createdOn: dateString,
-      owner: data.projects.owner,
-      identifier: data.projects.identifier,
-      scriptType: data.projects.scriptType,
-      scriptOptions: data.projects.scriptOptions
-    });
+    if(data.project){
+      const dateString = data.project.createdOn.substring(0, 10);
+      setProjectDetails({
+        name: data.project.name,
+        createdOn: dateString,
+        owner: data.project.owner,
+        identifier: data.project.identifier,
+        scriptType: data.project.scriptType,
+        scriptOptions: data.project.scriptOptions
+      });
+    }
   }
 
   useEffect(() => {
@@ -75,21 +78,25 @@ function HomeMain() {
   }, []);
 
   const popup = (openPopup) ?
-  (<ProjectPopup
-    projects={projects}
-    manageAddProjectPopup={manageAddProjectPopup}
-    setProjects={setProjects}
-  />) : "";
+    (<ProjectPopup
+      projects={projects}
+      manageAddProjectPopup={manageAddProjectPopup}
+      setProjects={setProjects}
+    />) : "";
 
-  if(JSON.parse(sessionStorage.authCredentials).activeProject && !projectDetails.name){
+  if (activeProject && !projectDetails.name){
     getProjectDetail();
   }
 
-  const projectDetail = (projectDetails.name || projectDetails.name === "" ) ? 
-    <ProjectDetails 
-     projectDetails={projectDetails} 
-     setProjectDetails={setProjectDetails} 
-     getProjectDetail={getProjectDetail}
+  const projectDetail = (projectDetails.name || projectDetails.name === "") ?
+    <ProjectDetails
+      activeProject={activeProject}
+      projectDetails={projectDetails}
+      projects={projects}
+      setProjects={setProjects}
+      setActiveProject={setActiveProject}
+      setProjectDetails={setProjectDetails}
+      getProjectDetail={getProjectDetail}
     /> : "";
   const projectIcons = (projects.length > 0) ? displayIcons(projects) : "";
 

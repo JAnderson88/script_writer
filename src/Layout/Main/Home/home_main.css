@@ -10,16 +10,16 @@
 .container#project_container{
   margin-bottom: 5vh;
   border: 1px solid black;
-  min-width: 77vw;
-  max-width: 77vw;
+  min-width: 79vw;
+  max-width: 79vw;
   min-height: 35vh;
 }
 
 .container#project_container header{
   padding: 0vh 4vw;
   border-bottom: 1px solid black;
-  min-width: 77vw;
-  max-width: 77vw;
+  min-width: 79vw;
+  max-width: 79vw;
   min-height: 7vh;
   max-height: 7vh;
   display: flex;
