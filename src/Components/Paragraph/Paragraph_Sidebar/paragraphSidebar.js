@@ -6,18 +6,38 @@ import { faPlus, faArrowUp, faArrowDown, faTimes } from '@fortawesome/free-solid
 //CSS
 import './paragraphSidebar.css'
 
-function ParagraphSidebar({ paragraphs, activeParagraph, setActiveParagraph, addParagraph, removeParagraph, updateComponentDimensions }) {
-  const changeActiveParagraph = (direction, e) => {
-    let nextIndex;
-    for (let i = 0; i < paragraphs.length; i++) {
-      if (paragraphs[i].paragraphID === activeParagraph) {
-        if (direction === "up") nextIndex = i - 1;
-        if (direction === "down") nextIndex = i + 1;
+function ParagraphSidebar(
+  { 
+    paragraphs, 
+    setParagraphs, 
+    activeParagraph, 
+    setActiveParagraph, 
+    addParagraph, 
+    removeParagraph, 
+    reconfigureTreatment, 
+    updateComponentDimensions 
+  }) {
+
+  const moveParagraph = async (direction) => {
+    const tempParagraphs = [...paragraphs];
+    for (let i = 0; i < tempParagraphs.length; i++) {
+      if (tempParagraphs[i].paragraphID === activeParagraph) {
+        if (direction === 'up' && i !== 0) {
+          const tempSlot = {...tempParagraphs[i-1]};
+          tempParagraphs[i-1] = tempParagraphs[i];
+          tempParagraphs[i] = tempSlot;
+          return await reconfigureTreatment(tempParagraphs)
+          // return setParagraphs(tempParagraphs);
+        }
+        if (direction === 'down' && i !== (tempParagraphs.length -1)) {
+          const tempSlot = {...tempParagraphs[i+1]};
+          tempParagraphs[i+1] = tempParagraphs[i];
+          tempParagraphs[i] = tempSlot;
+          return await reconfigureTreatment(tempParagraphs)
+          // return setParagraphs(tempParagraphs);
+        }
       }
     }
-    if (nextIndex >= paragraphs.length) nextIndex = 0;
-    if (nextIndex < 0) nextIndex = paragraphs.length - 1;
-    setActiveParagraph(paragraphs[nextIndex].paragraphID);
   }
 
   const addParagraphEventHandler = async () => {
@@ -39,10 +59,10 @@ function ParagraphSidebar({ paragraphs, activeParagraph, setActiveParagraph, add
       <button id="add_paragraph" onClick={addParagraphEventHandler}>
         <FontAwesomeIcon icon={faPlus} />
       </button>
-      <button id="cycle_up" onClick={(e) => { changeActiveParagraph("up", e) }}>
+      <button id="cycle_up" onClick={(e) => { moveParagraph("up") }}>
         <FontAwesomeIcon icon={faArrowUp} />
       </button>
-      <button id="cycle_down" onClick={(e) => { changeActiveParagraph("down", e) }}>
+      <button id="cycle_down" onClick={(e) => { moveParagraph("down") }}>
         <FontAwesomeIcon icon={faArrowDown} />
       </button>
       <button id="delete_paragraph" onClick={removeParagraphEventHandler}>

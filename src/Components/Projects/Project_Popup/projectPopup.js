@@ -25,18 +25,20 @@ function ProjectPopup(props) {
       })
     });
     const data = await response.json();
-    const projectTemps = [...props.projects];
-    const newProject = data.project;
-    let session = JSON.parse(sessionStorage.getItem("authCredentials"));
-
-    session.activeProject = data.activeProject;
-    localStorage.activeProject = data.activeProject;
     console.log(data.message);
-    projectTemps.push(newProject)
-
-    sessionStorage.setItem("authCredentials", JSON.stringify(session));
-    props.setProjects(projectTemps);
-    props.manageAddProjectPopup();
+    if(response.status === 200){
+      const projectTemps = [...props.projects];
+      const newProject = data.project;
+      let session = JSON.parse(sessionStorage.getItem("authCredentials"));
+  
+      session.activeProject = data.activeProject;
+      localStorage.activeProject = data.activeProject;
+      projectTemps.push(newProject)
+  
+      sessionStorage.setItem("authCredentials", JSON.stringify(session));
+      props.setProjects(projectTemps);
+      props.manageAddProjectPopup();
+    }
   }
 
   return (

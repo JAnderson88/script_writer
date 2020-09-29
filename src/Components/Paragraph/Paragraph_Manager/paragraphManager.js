@@ -24,7 +24,6 @@ function ParagraphManager(props) {
     for(let i=0; i<props.paragraphs.length; i++){
       if(!newSuggestions[props.paragraphs[i].paragraphID]) newSuggestions[props.paragraphs[i].paragraphID] = [];
     }
-    console.log(newSuggestions);
     JSON.parse(data.suggestions).forEach(suggestion => {
       newSuggestions[suggestion.paragraph].push(suggestion);
     });
