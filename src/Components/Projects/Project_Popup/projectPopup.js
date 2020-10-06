@@ -12,6 +12,11 @@ function ProjectPopup(props) {
   }
 
   const addProject = async e => {
+    const inputLine = document.querySelector("#addProjectPopup input");
+    if (inputLine.value === "") {
+      console.log("Please add a name to your project to continue");
+      return;
+    }
     console.log("Running addProject");
     const response = await fetch('http://localhost:3000/api/project/add', {
       method: "POST",

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import M from 'materialize-css';
+import { useHistory } from "react-router";
 
 //Components
 //CSS
 import './projectDetails.css';
 
 function ProjectDetails(props) {
-
+  
   const editProjectDetails = async () => {
     console.log("Running editProjectDetails");
     const response = await fetch(`http://localhost:3000/api/project/edit`, {
@@ -59,11 +60,11 @@ function ProjectDetails(props) {
   }
 
   const updateAuthCredentials = removedElement => {
-    if(sessionStorage.authCredentials){
+    if (sessionStorage.authCredentials) {
       const authCredentials = JSON.parse(sessionStorage.authCredentials);
       const temp = {};
       Object.keys(authCredentials).forEach(key => {
-        if(key !== removedElement) temp[key] = authCredentials[key]
+        if (key !== removedElement) temp[key] = authCredentials[key]
       });
       console.log(temp);
       sessionStorage.setItem('authCredentials', JSON.stringify(temp));
@@ -85,6 +86,10 @@ function ProjectDetails(props) {
     }
   }
 
+  const manageRoutes = (e, path) => {
+    if (e.target.id === "treatment_button") window.history.push(path);
+  }
+
   const setSelectedOptionForScreenType = () => {
     const options = document.getElementById('scriptType');
     const index = Array.from(options.options).findIndex(ele => ele.value === props.projectDetails.scriptType);
@@ -93,11 +98,11 @@ function ProjectDetails(props) {
 
   const createForm = () => {
     const value = (props.projectDetails.name) ? props.projectDetails.name : '';
-    const scriptTypeOptions = 
-      (props.projectDetails.scriptType === 'Movie') ? 
+    const scriptTypeOptions =
+      (props.projectDetails.scriptType === 'Movie') ?
         "Number of Acts" :
-      (props.projectDetails.scriptType === 'Episodic') ? 
-        "Number of Episodes" : ""
+        (props.projectDetails.scriptType === 'Episodic') ?
+          "Number of Episodes" : ""
 
     return (
       <Fragment>
@@ -123,6 +128,7 @@ function ProjectDetails(props) {
         <div className="container" id="submit_button_container">
           <button onClick={editProjectDetails}>Edit Details</button>
           <button onClick={handleDelete}>Delete Project</button>
+          <button onClick={e => manageRoutes(e, '/treatment')} id="treatment_button">Go to Treatment</button>
         </div>
       </Fragment>
     )

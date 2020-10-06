@@ -49,7 +49,7 @@ function LogIn() {
       <div className="input-field">
         <label htmlFor="email">Email</label>
         <input className="validate" type="email" name="email" placeholder="email@email.com" onChange={handleSubmit} />
-        <span class="helper-text" data-error="Not a valid email"></span>
+        <span className="helper-text" data-error="Not a valid email"></span>
       </div>
       <div className="input-field">
         <label htmlFor="password">Password</label>
