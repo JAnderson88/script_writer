@@ -1,6 +1,8 @@
 .paragraph_container.active_paragraph .suggestion_icon_container .suggestion_icon{
   border: 1px solid black;
   width: 33%;
+  min-height: 8vh;
+  margin-right: 0.24vw;
   display: flex;
   align-items: center;
 }

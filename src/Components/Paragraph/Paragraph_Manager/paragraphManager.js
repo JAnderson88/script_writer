@@ -27,6 +27,7 @@ function ParagraphManager(props) {
     JSON.parse(data.suggestions).forEach(suggestion => {
       newSuggestions[suggestion.paragraph].push(suggestion);
     });
+    console.log(newSuggestions);
     setSuggestions(newSuggestions);
   }
 

@@ -84,7 +84,8 @@
   min-height: 10vh;
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .paragraph_container.unactive_paragraph.empty{

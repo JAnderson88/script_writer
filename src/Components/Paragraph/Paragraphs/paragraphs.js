@@ -33,7 +33,7 @@ function Paragraph(props) {
   };
 
   const updateManager = e => {
-    if (tag !== props.tag || body !== props.body){
+    if (tag !== props.tag || body !== props.body) {
       props.updateParagraph(tag, body, props.id);
     }
   }
@@ -57,14 +57,14 @@ function Paragraph(props) {
     return props.addSuggestions(props.id, classification, selectedText);
   }
 
-  const displayActiveParagraph = () =>{
+  const displayActiveParagraph = () => {
     let paragraphClass = 'paragraph_container';
     paragraphClass += (props.id === props.activeParagraph) ? ' active_paragraph locked' : ' unactive_paragraph locked';
     paragraphClass += (body === '') ? ' empty' : '';
     return paragraphClass;
   }
 
-  const renderSuggestionButtons = (locked) ?
+  const renderSuggestionButtons = (!locked) ?
     <Fragment>
       <button className="plot_point" disabled>P</button>
       <button className="charachter" disabled>C</button>
@@ -79,24 +79,36 @@ function Paragraph(props) {
 
   const displaySuggestions = () => {
     const returnArray = [];
-    const numRows = (props.suggestions.length <= 3) ? 1 : Math.trunc(props.suggestions.length / 3);
-    for (let i = 0; i < numRows; i++) {
-      const row = [];
-      for (let j = (i * 3); j < ((i * 3) + 3); j++) {
-        const currentElement = ((i * 3) + j);
-        if (currentElement >= props.suggestions.length) break;
-        row.push(
-          <SuggestionIcon
-            id={props.suggestions[currentElement]._id}
-            key={currentElement}
-            paragraph={props.id}
-            classification={props.suggestions[currentElement].classification}
-            data={props.suggestions[currentElement].data}
-            removeSuggestions={props.removeSuggestions}
-          />
-        );
-      }
-      returnArray.push(row);
+    // console.log(props.suggestions.length);
+    // const numRows = (props.suggestions.length <= 3) ? 1 : Math.ceil(props.suggestions.length / 3);
+    // console.log(numRows);
+    // for (let i = 0; i < numRows; i++) {
+    // const row = [];
+    // for (let j = (i * 3); j < ((i * 3) + 3); j++) {
+    //   const currentElement = ((i * 3) + j);
+    //   if (currentElement >= props.suggestions.length) break;
+    //   row.push(
+    //     <SuggestionIcon
+    //       id={props.suggestions[currentElement]._id}
+    //       key={currentElement}
+    //       paragraph={props.id}
+    //       classification={props.suggestions[currentElement].classification}
+    //       data={props.suggestions[currentElement].data}
+    //       removeSuggestions={props.removeSuggestions}
+    //     />
+    //   );
+    // }
+    for (let i = 0; i < props.suggestions.length; i++) {
+      returnArray.push(
+        <SuggestionIcon
+          id={props.suggestions[i]._id}
+          key={i}
+          paragraph={props.id}
+          classification={props.suggestions[i].classification}
+          data={props.suggestions[i].data}
+          removeSuggestions={props.removeSuggestions}
+        />
+      );
     }
     return returnArray;
   }
@@ -104,9 +116,7 @@ function Paragraph(props) {
   const displaySuggestionContainer = (props.suggestions && props.suggestions.length > 0) ?
     <div className="suggestion_icon_container">
       {displaySuggestions()}
-    </div>
-    :
-    ''
+    </div> : '';
 
   return (
     <Fragment>
