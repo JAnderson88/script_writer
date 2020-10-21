@@ -1,0 +1,20 @@
+#timeline_main #timeline_manager{
+  border: 1px solid black;
+  margin-top: 6vh;
+  min-width: 85vw;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#timeline_main #timeline_manager #button_container{
+  min-width: 85vw;
+  display: flex;
+}
+
+#timeline_manager #button_container button{
+  margin-top: 4vh;
+  margin-bottom: 8vh;
+  flex: 1;
+}
+

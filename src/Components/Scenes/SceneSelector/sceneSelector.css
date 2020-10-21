@@ -1,0 +1,95 @@
+#timeline_main #scene_selector{
+  border: 1px solid black;
+  min-width: 70vw;
+  min-height: 50vh;
+  border-radius: 25px 25px 0px 0px;
+}
+
+#timeline_main #scene_selector header{
+  min-height: 10vh;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+
+#scene_selector header div:nth-child(1){
+  border-right: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#scene_selector header div:nth-child(3){
+  border-left: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#scene_selector header .arrow_container{
+  flex: 0.5;
+  /* background-color: #696969; */
+}
+
+#scene_selector header #scene_number_display{
+  flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#timeline_main #scene_selector #scene_selector_body{
+  min-width: 70vw;
+  min-height: 40vh;
+}
+
+#scene_selector #scene_selector_body .details_container{
+  min-width: 70vw;
+  min-height: 25vh;
+}
+
+#scene_selector_body .details_container textarea{
+  border: none;
+  padding-top: 5vh;
+  min-width: 70vw;
+  min-height: 25vh;
+  text-align: center;
+  resize: none;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#scene_selector #scene_selector_body .scene_props_container{
+  border-top: 1px solid black;
+  min-width: 70vw;
+  min-height: 15vh;
+  display: flex;
+  justify-content: space-around;
+}
+
+#scene_selector_body .scene_props_container div{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#scene_selector_body .scene_props_container input{
+  width: 25%;
+  text-align: center;
+}
+
+.scene_props_container #character_container input {
+  width: 70% !important;
+  overflow: hidden;
+}
+
+#scene_selector #scene_selector_body .add_scene_triangle{
+  position: absolute;
+  align-self: flex-end;
+  background-color: black;
+  overflow: hidden;
+  min-height: 20px;
+  min-width: 20px;
+  z-index: 1;
+  transform: translateY(5.8vh) translateX(0vw);
+}

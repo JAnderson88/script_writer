@@ -79,25 +79,6 @@ function Paragraph(props) {
 
   const displaySuggestions = () => {
     const returnArray = [];
-    // console.log(props.suggestions.length);
-    // const numRows = (props.suggestions.length <= 3) ? 1 : Math.ceil(props.suggestions.length / 3);
-    // console.log(numRows);
-    // for (let i = 0; i < numRows; i++) {
-    // const row = [];
-    // for (let j = (i * 3); j < ((i * 3) + 3); j++) {
-    //   const currentElement = ((i * 3) + j);
-    //   if (currentElement >= props.suggestions.length) break;
-    //   row.push(
-    //     <SuggestionIcon
-    //       id={props.suggestions[currentElement]._id}
-    //       key={currentElement}
-    //       paragraph={props.id}
-    //       classification={props.suggestions[currentElement].classification}
-    //       data={props.suggestions[currentElement].data}
-    //       removeSuggestions={props.removeSuggestions}
-    //     />
-    //   );
-    // }
     for (let i = 0; i < props.suggestions.length; i++) {
       returnArray.push(
         <SuggestionIcon

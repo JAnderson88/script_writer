@@ -1,6 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import M from 'materialize-css';
-import { useHistory } from "react-router";
 
 //Components
 //CSS
@@ -101,8 +100,8 @@ function ProjectDetails(props) {
     const scriptTypeOptions =
       (props.projectDetails.scriptType === 'Movie') ?
         "Number of Acts" :
-        (props.projectDetails.scriptType === 'Episodic') ?
-          "Number of Episodes" : ""
+      (props.projectDetails.scriptType === 'Episodic') ?
+        "Number of Episodes" : ""
 
     return (
       <Fragment>

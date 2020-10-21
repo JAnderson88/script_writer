@@ -1,0 +1,67 @@
+#timeline_main #timeline_manager .timeline_act_container{
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  /* min-height: 54vh; */
+  min-width: 85vw;
+  display: flex;
+  justify-content: flex-start;
+}
+#timeline_manager .timeline_act_container .timeline_act{
+  border-right: 1px solid black;
+  /* min-height: 54vh; */
+  min-width: 31vw;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline_act_container .timeline_act .timeline{
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  min-width: 15vw;
+  /* min-height: 54vh; */
+  margin-left: 8vw;
+}
+
+.timeline_act_container .timeline_scene_container .timeline_scene_row{
+  margin: 1.5vh 0;
+  min-width: 54vw;
+  min-height: 15vh;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.timeline_scene_container .timeline_scene_row .small_line{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.small_line hr{
+  min-width: 3vw;
+}
+
+.timeline_scene_container .timeline_scene_row .long_line{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.long_line hr{
+  min-width: 15vw;
+}
+
+.timeline_scene_container .timeline_scene_row .scene_box{
+  border: 1px solid black;
+  padding: 0 1vw;
+  min-height: 15vh;
+  max-height: 15vh;
+  min-width: 20vw;
+  max-width: 20vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeline_scene_container .timeline_scene_row .scene_box.active{
+  box-shadow: -8px -8px 45px 0px rgba(0,0,0,0.38);
+}

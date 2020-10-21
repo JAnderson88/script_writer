@@ -8,8 +8,8 @@ import './suggestionContainer.css';
 function SuggestionContainer({ suggestions }) {
 
   const displaySuggestions = () => {
-    return suggestions.map(suggestion => {
-      return <SuggestionBox suggestion={suggestion} />
+    return suggestions.map((suggestion, index) => {
+      return <SuggestionBox suggestion={suggestion} key={index} />
     })
   }
 

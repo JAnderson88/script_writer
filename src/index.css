@@ -36,6 +36,54 @@ code {
   display: inline;
 }
 
+.aqua{
+  background-color: #00FFFF;
+}
+
+.gray{
+  background-color: #808080;
+}
+
+.navy{
+  background-color: #000080;
+}
+
+.silver{
+  background-color: #C0C0C0;
+}
+
+.green{
+  background-color: #008000;
+}
+
+.olive{
+  background-color: #808000;
+}
+
+.teal{
+  background-color: #008080;
+}
+
+.blue{
+  background-color: #0000FF;
+}
+
+.lime{
+  background-color: #00FF00;
+}
+
+.purple{
+  background-color: #800080;
+}
+
+.red{
+  background-color: #FF0000;
+}
+
+.yellow{
+  background-color: #FFFF00;
+}
+
 @media (orientation: portrait){
   #root .lg_card{
     min-width: 90vw;
@@ -45,5 +93,7 @@ code {
   body{
     overflow-x: hidden;
   }
+
+
 }
 
