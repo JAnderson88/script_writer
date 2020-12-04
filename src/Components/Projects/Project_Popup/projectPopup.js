@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 
 //Components
 //CSS
@@ -38,6 +38,7 @@ function ProjectPopup(props) {
   
       session.activeProject = data.activeProject;
       localStorage.activeProject = data.activeProject;
+      setProjectName("");
       projectTemps.push(newProject)
   
       sessionStorage.setItem("authCredentials", JSON.stringify(session));
@@ -45,6 +46,10 @@ function ProjectPopup(props) {
       props.manageAddProjectPopup();
     }
   }
+
+  useEffect(() => {
+
+  }, [props.projects])
 
   return (
     <div id="addProjectPopup">

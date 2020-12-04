@@ -7,64 +7,104 @@ import M from 'materialize-css';
 //CSS
 import './sceneSelector.css';
 
-function SceneSelector({ plots, setPlots, activePlot, setActivePlot, acts, scenes, charachters, updateTimeline }) {
+function SceneSelector({ plots, acts, charachters, updateTimeline, currentPlotIndex, setCurrentPlotIndex, cycleCurrentPlot, colorIndexArray }) {
 
-  let [currentPlotIndex, setCurrentPlotIndex] = useState(0);
   const [detailsText, setDetailsText] = useState("");
+  const [actOptions, setActOptions] = useState(0);
+  const [actValue, setActValue] = useState(0);
+  const [sceneOptions, setSceneOptions] = useState({});
+  const [sceneValue, setSceneValue] = useState(0);
 
   const handleChange = e => {
     if (e.target.name === "details") setDetailsText(e.target.value);
-  }
-
-  const cycleCurrentPlot = (direction) => {
-    console.log("Running cycleCurrentPlot")
-    if (direction === "left") {
-      if (currentPlotIndex === 0) return;
-      setCurrentPlotIndex(currentPlotIndex - 1);
-      // setDetailsText(plots[currentPlotIndex].data);
+    if (e.target.parentNode.id === "act") {
+      setActValue(parseInt(e.target.textContent));
+      setSceneValue(0);
     }
-    if (direction === "right") {
-      if (currentPlotIndex >= plots.length - 1) return;
-      setCurrentPlotIndex(currentPlotIndex + 1);
-      // setDetailsText(plots[currentPlotIndex].data);
+    if (e.target.parentNode.id === "scene") {
+      setSceneValue(parseInt(e.target.textContent));
+      for (let i = 0; i < plots.length; i++) {
+        if (plots[i].act === actValue.toString() && (plots[i].sceneId + 1) === parseInt(e.target.textContent)) {
+          setCurrentPlotIndex(i);
+        }
+      }
     }
   }
 
-  const renderInput = (type, data) => {
+  const deriveSceneOptionsValues = () => {
+    const tempSceneOptions = {}
+    for (let i = 0; i < plots.length; i++) {
+      tempSceneOptions[plots[i].act] = (!tempSceneOptions[plots[i].act]) ? 1 : tempSceneOptions[plots[i].act] + 1;
+    }
+    setSceneOptions(tempSceneOptions);
+  }
+
+  const handleRemoveElement = async e => {
+    e.persist();
+    if (e.target.classList.value === "remove_act"){
+      const response = window.confirm("Are you sure you wish to delete this Act? Removing this act will delete all scenes associated with this act");
+      if (response) {
+        await updateTimeline("remove", {}, {type: "act", act: actValue});
+      }
+    }
+    if (e.target.classList.value === "remove_scene"){
+      const response = window.confirm("Are you sure you wish to delete this scene?");
+      if (response) {
+        await updateTimeline("remove", plots[currentPlotIndex], {type: "scene"});
+      }
+    }
+  }
+
+  const renderActCycler = () => {
     let options = [];
-    const length = (typeof data === "number") ? data : data.length;
-    options.push(<option key="0">0</option>);
-    for (let i = 1; i <= length; i++) {
-      options.push(<option key={i.toString()}>{i.toString()}</option>);
+    options.push(<div key="top" className="empty"></div>);
+    for (let i = 0; i <= actOptions; i++) {
+      const selected = (actValue === i + 1) ? "selected" : "";
+      options.push(
+        <div className={selected} key={i + 1} onClick={handleChange}>
+          {i + 1}
+        </div>
+      );
     }
+    options.push(<div key="bottom" className="empty"></div>);
     return (
-      <select name={type} id={type}>
-        {options.map(option => {
-          return option;
-        })}
-      </select>
+      <Fragment>
+        {options.map(option => { return option; })}
+      </Fragment>
     );
   }
 
-  const renderCharachterInput = () => {
+  const renderSceneCycler = () => {
     let options = [];
-    options.push(<option key="0">Select Charachter</option>);
-    for (let i = 1; i <= charachters.length; i++) {
-      options.push(<option key={i}>{charachters[i]}</option>)
+    options.push(<div key="top" className="empty"></div>);
+    for (let i = 1; i <= sceneOptions[actValue]; i++) {
+      const selected = (sceneValue === i) ? "selected" : "";
+      options.push(
+        <div className={selected} key={i.toString()} onClick={handleChange}>
+          {i}
+        </div>
+      );
     }
+    options.push(<div key="bottom" className="empty"></div>);
     return (
-      <select name="charachter" id="charachter">
-        {options.map(option => {
-          return option
-        })}
-      </select>
+      <Fragment>
+        {options.map(option => { return option; })}
+      </Fragment>
     );
   }
 
   useEffect(() => {
     M.AutoInit();
-    if (plots.length > 0) setDetailsText(plots[currentPlotIndex].data);
-  }, [plots, acts, scenes, currentPlotIndex]);
+    if (plots.length > 0) {
+      setDetailsText(plots[currentPlotIndex].data);
+      setActValue(parseInt(plots[currentPlotIndex].act));
+      deriveSceneOptionsValues();
+      setSceneValue(parseInt(plots[currentPlotIndex].sceneId) + 1);
+    }
+    setActOptions(acts);
+    if (plots.length === 0) document.querySelector("#details").disabled = true;
+    if (plots.length > 0) document.querySelector("#details").disabled = false;
+  }, [plots, acts, currentPlotIndex, actOptions]);
 
   return (
     <div id="scene_selector">
@@ -73,7 +113,7 @@ function SceneSelector({ plots, setPlots, activePlot, setActivePlot, acts, scene
           <FontAwesomeIcon icon={faArrowCircleLeft} />
         </div>
         <div id="scene_number_display">
-          {currentPlotIndex + 1}
+          {(plots.length === 0) ? 0 : currentPlotIndex + 1}
         </div>
         <div className="arrow_container" onClick={() => { cycleCurrentPlot("right") }}>
           <FontAwesomeIcon icon={faArrowCircleRight} />
@@ -81,24 +121,28 @@ function SceneSelector({ plots, setPlots, activePlot, setActivePlot, acts, scene
       </header>
       <div id="scene_selector_body">
         <div className="details_container">
-          <textarea name="details" id="details" onChange={handleChange} onBlur={e => { updateTimeline(e, "plot") }} value={detailsText}></textarea>
+          <textarea name="details" id="details" onChange={handleChange} onBlur={() => { updateTimeline("edit", plots[currentPlotIndex], { data: detailsText }) }} value={detailsText} />
         </div>
         <div className="scene_props_container">
           <div id="act_container">
-            <label htmlFor="act">Act</label>
-            {renderInput("act", acts)}
-          </div>
-          <div id="scence_container">
-            <label htmlFor="scene">Scene</label>
-            {renderInput("scene", scenes)}
-          </div>
-          <div id="character_container">
-            <label htmlFor="charachter">Charachter</label>
-            <div>
-              {renderCharachterInput()}
+            <div className="cycler" id="act">
+              {renderActCycler()}
             </div>
-            <div className="add_scene_triangle" onClick={e => { updateTimeline(e, "scene") }}></div>
+            <div>
+              <button className="add_act" onClick={async e => { await updateTimeline("add", {}, { type: "act" }) }}> + </button>
+              <button className="remove_act" onClick={handleRemoveElement}> x </button>
+            </div>
           </div>
+          <div id="scene_container">
+            <div className="cycler" id="scene">
+              {renderSceneCycler()}
+            </div>
+            <div>
+              <button className="add_scene" onClick={async e => { await updateTimeline("add", {}, { type: "scene", act: actValue }) }}> + </button>
+              <button className="remove_scene" onClick={handleRemoveElement}> x </button>
+            </div>
+          </div>
+          <div id="charachter_container"></div>
         </div>
       </div>
     </div>

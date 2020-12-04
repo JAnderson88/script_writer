@@ -5,30 +5,29 @@ import TimelinePart from '../../../Components/Timeline/Timeline_Part/timelinePar
 //CSS
 import './timeline_manager.css';
 
-function TimeLineManager({ plots, setPlots, acts, scenes, charachters, updateTimeline}) {
+function TimeLineManager({ plots, acts, charachters, colorIndexArray, currentPlotIndex, setCurrentPlotIndex, updateTimeline }) {
 
   useEffect(() => {
-    // action on update of movies
-    // console.log(plots);
-}, [plots, acts, scenes]);
-
-  const testingFunction = () => { 
-    // console.log(plots); 
-    setPlots({ test: "Test" }); 
-    console.log(plots) 
-  }
+    // console.log(colorIndexArray);
+  }, [plots, acts, colorIndexArray, currentPlotIndex]);
 
   const renderTimelineStructure = () => {
     const timelineAct = [];
-    for (let i = 0; i < acts; i++) {
-      const tempScenes = scenes.filter(scene => (scene.act === (i + 1).toString()));
+    for (let i = 0; i <= acts; i++) {
+      const tempScenes = plots.filter(scene => (scene.act === (i+1).toString()));
       const height = (tempScenes.length <= 3) ? `${3 * 18}vh` : `${tempScenes.length * 18}vh`;
       const style = { height: height };
       timelineAct.push(
         <TimelinePart
+          act={i+1}
           scenes={tempScenes}
           style={style}
+          clrIndex={colorIndexArray[i]}
+          colorReference={colorIndexArray}
           key={i}
+          currentPlotIndex={currentPlotIndex}
+          setCurrentPlotIndex={setCurrentPlotIndex}
+          updateTimeline={updateTimeline}
         />
       );
     }
@@ -39,12 +38,6 @@ function TimeLineManager({ plots, setPlots, acts, scenes, charachters, updateTim
 
   return (
     <div id="timeline_manager">
-      <div id="button_container">
-        {/* <button onClick={e => { updateTimeline(e, "act") }}>+ Add Act</button> */}
-        <button onClick={testingFunction}>+ Add Act</button>
-        {/* <button onClick={e => { updateTimeline(e, "scene") }}>+ Add Scene</button> */}
-        <button onClick={testingFunction}>+ Add Scene</button>
-      </div>
       {renderTimelineStructure()}
     </div>
   );

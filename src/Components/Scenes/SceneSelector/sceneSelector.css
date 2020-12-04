@@ -38,58 +38,80 @@
 }
 
 #timeline_main #scene_selector #scene_selector_body{
+  display: flex;
+  flex-direction: row;
   min-width: 70vw;
   min-height: 40vh;
 }
 
 #scene_selector #scene_selector_body .details_container{
-  min-width: 70vw;
+  min-width: 50vw;
+  max-width: 50vw;
   min-height: 25vh;
 }
 
 #scene_selector_body .details_container textarea{
   border: none;
   padding-top: 5vh;
-  min-width: 70vw;
-  min-height: 25vh;
+  min-width: 50vw;
+  max-width: 56vw;
+  min-height: 39vh;
   text-align: center;
   resize: none;
   font-family: 'Courier New', Courier, monospace;
 }
 
 #scene_selector #scene_selector_body .scene_props_container{
-  border-top: 1px solid black;
-  min-width: 70vw;
-  min-height: 15vh;
+  min-width: 20vw;
+  max-width: 20vw;
+  min-height: 40vh;
+  max-height: 40vh;
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
 }
 
-#scene_selector_body .scene_props_container div{
+#scene_selector_body .scene_props_container > div{
+  border-left: 1px solid black;
   flex: 1;
+  min-height: 40vh;
+  max-height: 40vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-#scene_selector_body .scene_props_container input{
-  width: 25%;
-  text-align: center;
+.scene_props_container > div .cycler{
+  border-bottom: 1px solid black;
+  min-height: 35vh !important;
+  max-height: 35vh !important;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
-.scene_props_container #character_container input {
-  width: 70% !important;
-  overflow: hidden;
+.scene_props_container > div > div{
+  display: flex;
 }
 
-#scene_selector #scene_selector_body .add_scene_triangle{
-  position: absolute;
-  align-self: flex-end;
-  background-color: black;
-  overflow: hidden;
-  min-height: 20px;
-  min-width: 20px;
-  z-index: 1;
-  transform: translateY(5.8vh) translateX(0vw);
+.scene_props_container > div > div button {
+  flex: 1;
+}
+
+.cycler > div{
+  width: 100%;
+  border-bottom: 1px solid black;
+  min-height: 5vh;
+}
+
+.cycler > div.selected{
+  background-color: green;
+}
+
+.cycler .empty{
+  min-height: 10vh !important;
+  max-height: 10vh !important;
+}
+
+.scene_props_container > div button{
+  min-height: 5vh;
+  max-height: 5vh;
 }
