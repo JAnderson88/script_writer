@@ -17,7 +17,7 @@ function TimelineMain() {
   const [colorIndexArray, setColorIndexArray] = useState([]);
 
   const setReferenceIndexes = (plots) => {
-    console.log(plots);
+    // console.log(plots);
     return plots.map((scene, index) => {
       scene.refrenceIndex = index;
       return scene;
@@ -76,14 +76,16 @@ function TimelineMain() {
       })
     });
     const data = await response.json();
-    console.log(data);
     console.log(data.message);
     if (data.timeline) setPlots(setReferenceIndexes(data.timeline));
     if (data.acts) setActs(data.acts);
-    if (data.colorArray){
-     setColorIndexArray(data.colorArray);
-     console.log(colorIndexArray);
-    }  
+    if (data.colorArray) {
+      setColorIndexArray(data.colorArray);
+    }
+    if (currentPlotIndex >= data.timeline.length - 1) {
+      console.log("In this block");
+      setCurrentPlotIndex(data.timeline.length - 1);
+    }
   }
 
   const cycleCurrentPlot = (direction, index) => {

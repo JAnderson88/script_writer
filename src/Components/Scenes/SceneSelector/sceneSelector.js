@@ -95,7 +95,7 @@ function SceneSelector({ plots, acts, charachters, updateTimeline, currentPlotIn
 
   useEffect(() => {
     M.AutoInit();
-    if (plots.length > 0) {
+    if (plots.length > 0 && currentPlotIndex < plots.length) {
       setDetailsText(plots[currentPlotIndex].data);
       setActValue(parseInt(plots[currentPlotIndex].act));
       deriveSceneOptionsValues();
