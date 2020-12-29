@@ -1,0 +1,20 @@
+#treatment_main .page{
+  border: 1px solid black;
+  margin: 8vh 0;
+  padding: 1.25in 1in;
+  min-width: 8.5in;
+  max-width: 8.5in;
+  min-height: 11in;
+  max-height: 11in;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#treatment_main .cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

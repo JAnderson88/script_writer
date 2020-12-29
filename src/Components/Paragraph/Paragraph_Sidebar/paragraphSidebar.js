@@ -27,14 +27,12 @@ function ParagraphSidebar(
           tempParagraphs[i-1] = tempParagraphs[i];
           tempParagraphs[i] = tempSlot;
           return await reconfigureTreatment(tempParagraphs)
-          // return setParagraphs(tempParagraphs);
         }
         if (direction === 'down' && i !== (tempParagraphs.length -1)) {
           const tempSlot = {...tempParagraphs[i+1]};
           tempParagraphs[i+1] = tempParagraphs[i];
           tempParagraphs[i] = tempSlot;
           return await reconfigureTreatment(tempParagraphs)
-          // return setParagraphs(tempParagraphs);
         }
       }
     }

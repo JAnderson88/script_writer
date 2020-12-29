@@ -3,6 +3,7 @@ import React, { useState, useEffect, memo } from 'react';
 //Components
 import ParagraphSidebar from '../../../Components/Paragraph/Paragraph_Sidebar/paragraphSidebar';
 import ParagraphManager from '../../../Components/Paragraph/Paragraph_Manager/paragraphManager';
+import PageManager from '../../../Components/Pages/PageManager/pageManager';
 //CSS
 import './treatment_main.css';
 
@@ -15,7 +16,16 @@ function TreatmentMain() {
   const [paragraphs, setParagraphs] = useState([]);
   const [activeParagraph, setActiveParagraph] = useState("");
   const [noParagraphs, setNoParagraphs] = useState(false);
+  const [numPages, setNumPages] = useState(1);
   const projectName = (JSON.parse(sessionStorage.authCredentials).projectName) ? JSON.parse(sessionStorage.authCredentials).projectName : '';
+
+  const setPagesAmount = () => {
+    if (Object.keys(paragraphs).length === 0) return;
+    const pages = paragraphs.reduce((acc, curr) => {
+      return (curr.page > acc) ? curr.page : acc
+    }, 0);
+    setNumPages(pages);
+  }
 
   const addParagraph = async () => {
     console.log("Running addParagraph");
@@ -28,7 +38,7 @@ function TreatmentMain() {
       }),
       body: JSON.stringify({
         project: JSON.parse(sessionStorage.authCredentials).activeProject,
-        data: { method: "add" }
+        data: { method: "add", page: numPages }
       })
     });
     const data = await response.json();
@@ -37,6 +47,7 @@ function TreatmentMain() {
     if (noParagraphs) setNoParagraphs(false);
     setParagraphs(data.treatment.paragraphs);
     setActiveParagraph(data.treatment.paragraphs[data.treatment.paragraphs.length -1].paragraphID);
+    setPagesAmount();
   }
 
   const updateParagraph = async (tags = "", body = "", id) => {
@@ -71,6 +82,7 @@ function TreatmentMain() {
     const data = await response.json();
     console.log(data.message);
     localStorage.treatment = data.treatment;
+    localStorage.createdBy = data.createdBy;
     if (JSON.parse(data.treatment).paragraphs.length === 0) return setNoParagraphs(true);
     setParagraphs(JSON.parse(data.treatment).paragraphs);
   }
@@ -140,7 +152,8 @@ function TreatmentMain() {
       setActiveParagraph(paragraphs[0].paragraphID);
     }
     componentDidMount();
-  }, [componentDidMount]);
+    setPagesAmount();
+  }, [componentDidMount, paragraphs, numPages]);
 
   const setScrollBarVisibility = () => {
     return (detachmentHeight > (headerHeight + mainHeight)) ? '' : 
@@ -156,28 +169,28 @@ function TreatmentMain() {
       />
   };
 
-  const displayParagraphManager = () => {
-    return (paragraphs && paragraphs.length > 0) ? 
-      <ParagraphManager 
+  const renderPages = () => {
+    return (
+      <PageManager 
         paragraphs={paragraphs} 
         setActiveParagraph={setActiveParagraph} 
         activeParagraph={activeParagraph} 
         setParagraphs={setParagraphs} 
-        updateParagraph={updateParagraph} 
         removeParagraph={removeParagraph} 
-      /> 
-    : '';
-  };
+        updateParagraph={updateParagraph}
+        projectName={projectName}
+        numPages={numPages}
+        setNumPages={setNumPages}
+      />
+    )
+  }
 
   return (
     <div className="main" id="treatment_main">
-      <div className="container" id="project_title_holder">
-        {projectName}
-      </div>
       {setScrollBarVisibility()}
-      {displayParagraphManager()}
+      {renderPages()}
     </div>
   );
 };
 
-export default memo(TreatmentMain);
+export default TreatmentMain;

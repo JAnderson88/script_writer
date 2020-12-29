@@ -1,29 +1,29 @@
-#treatment_main #paragraph_manager .paragraph_container{
-  margin: 1vh 0vw 5vh 0vw;
+#treatment_main .page .paragraph_container{
+  margin: 8px 0vw;
   border: 1px solid black;
-  min-width: 80%;
-  max-width: 80%;
+  min-width: 100%;
+  max-width: 100%;
   min-height: 35vh;
   font-family: 'Courier Prime', monospace;
   font-size: 12px;
+  line-height: 16px;
 }
 
 .paragraph_container.active_paragraph{
-  min-width: 90% !important;
-  max-width: 90% !important;
-  min-height: 45vh !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  min-height: auto !important;
   transition: all 0.5s;
 }
 
 .paragraph_container.unactive_paragraph{
   border: none !important; 
-  min-width: 80%;
-  max-width: 80%;
-  margin: 1vh 0 0.5vh 0 !important;
+  min-width: 100%;
+  max-width: 100%;
   min-height: auto !important;
 }
 
-#paragraph_manager .paragraph_container > header{
+.page .paragraph_container > header{
   border-bottom: 1px solid black;
   min-height: 8vh;
   display: flex;
@@ -56,7 +56,7 @@
 }
 
 .paragraph_container.active_paragraph .body textarea{
-  min-height: 24.5vh;
+  min-height: 16px;
   border: none;
   resize: vertical;
   overflow: auto;
@@ -65,14 +65,15 @@
 
 .paragraph_container.unactive_paragraph .body{
   min-height: 0vh !important;
-  height: auto !important;
 }
 
 .paragraph_container.unactive_paragraph .body textarea{
   border: none;
+  padding: 0;
   font-family: 'Courier Prime', monospace !important;
   resize: none;
   overflow: hidden;
+  line-height: 16px;
 }
 
 .body textarea::-webkit-scrollbar{

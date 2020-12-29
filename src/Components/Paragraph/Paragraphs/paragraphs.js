@@ -8,58 +8,77 @@ import SuggestionIcon from '../../Suggestions/SuggestionIcon/suggestionIcon';
 //CSS
 import './paragraphs.css';
 
-function Paragraph(props) {
-  const [body, updateBody] = useState(props.body);
-  const [tag, updateTag] = useState(props.tags);
+function Paragraph({
+  instanceBody,
+  tags,
+  id,
+  pageNum,
+  setNumPages,
+  pageDimensions,
+  activeParagraph,
+  setActiveParagraph,
+  updateParagraph,
+  removeParagraph,
+  suggestions,
+  addSuggestions,
+  removeSuggestions,
+  pageSize,
+  setPageSize,
+  calculatePageHeight,
+}) {
+  const [body, updateBody] = useState(instanceBody);
+  const [tag, updateTag] = useState(tags);
   const [locked, setLocked] = useState(false);
   const [textareaHeight, setTextareaHeight] = useState({ height: "14px" });
   const [selectedText, setSelectedText] = useState("");
-
-  useEffect(() => {
-    updateBody(props.body);
-    updateTag(props.tag);
-    resizeTextarea();
-    M.AutoInit();
-  }, [props]);
 
   const handleChange = (e) => {
     if (!locked) {
       if (e.target.className === "tags") updateTag(e.target.value);
       if (e.target.parentNode.className === "body") {
         updateBody(e.target.value);
-        resizeTextarea();
+        resizeTextArea();
       }
     }
   };
 
   const updateManager = e => {
-    if (tag !== props.tag || body !== props.body) {
-      props.updateParagraph(tag, body, props.id);
+    if (tag !== tags || body !== instanceBody) {
+      updateParagraph(tag, body, id);
     }
   }
 
-  const resizeTextarea = () => {
-    const margin = 16;
-    const COURIER_MONOSPACE_CHAR_SIZE = 9;
-    const charachtersPerLine = Math.floor((document.querySelectorAll(".paragraph_body")[props.index].clientWidth) / COURIER_MONOSPACE_CHAR_SIZE);
-    const charachterSize = body.length;
-    const bodyLines = Math.trunc(charachterSize / charachtersPerLine);
-    const height = ((bodyLines * 12) + margin);
-    setTextareaHeight({ height: `${height}px` });
+  useEffect(() => {
+    updateBody(instanceBody);
+    updateTag(tags);
+    resizeTextArea();
+    M.AutoInit();
+  }, [instanceBody, tags, pageSize]);
+
+  const resizeTextArea = async () => {
+    const chars = body.length;
+    const lines = Math.ceil(chars / 85);
+    const height = (lines * 16);
+    setTextareaHeight({height: `${height}px`});
+    const pageHeight = calculatePageHeight();
+    if (pageHeight !== pageSize) setPageSize(pageHeight);
+    if (pageHeight > pageDimensions.pageHeight){
+      setNumPages(pageNum + 1);
+    }
   }
 
   const selectionManager = e => {
-    if (locked) return;
+    if (!locked) return;
     if (e.target.className === "paragraph_body") {
       return setSelectedText(window.getSelection().toString());
     }
     const classification = (e.target.className === "plot_point") ? "plot_point" : "charachter";
-    return props.addSuggestions(props.id, classification, selectedText);
+    return addSuggestions(id, classification, selectedText);
   }
 
   const displayActiveParagraph = () => {
     let paragraphClass = 'paragraph_container';
-    paragraphClass += (props.id === props.activeParagraph) ? ' active_paragraph locked' : ' unactive_paragraph locked';
+    paragraphClass += (id === activeParagraph) ? ' active_paragraph locked' : ' unactive_paragraph locked';
     paragraphClass += (body === '') ? ' empty' : '';
     return paragraphClass;
   }
@@ -79,37 +98,37 @@ function Paragraph(props) {
 
   const displaySuggestions = () => {
     const returnArray = [];
-    for (let i = 0; i < props.suggestions.length; i++) {
+    for (let i = 0; i < suggestions.length; i++) {
       returnArray.push(
         <SuggestionIcon
-          id={props.suggestions[i]._id}
+          id={suggestions[i]._id}
           key={i}
-          paragraph={props.id}
-          classification={props.suggestions[i].classification}
-          data={props.suggestions[i].data}
-          removeSuggestions={props.removeSuggestions}
+          paragraph={id}
+          classification={suggestions[i].classification}
+          data={suggestions[i].data}
+          removeSuggestions={removeSuggestions}
         />
       );
     }
     return returnArray;
   }
 
-  const displaySuggestionContainer = (props.suggestions && props.suggestions.length > 0) ?
+  const displaySuggestionContainer = (suggestions && suggestions.length > 0) ?
     <div className="suggestion_icon_container">
       {displaySuggestions()}
     </div> : '';
 
   return (
     <Fragment>
-      <div className={displayActiveParagraph()}>
+      <div className={displayActiveParagraph()} onClick={() => { setActiveParagraph(id) }}>
         <header>
-          <input type="text" className="tags" value={tag} onChange={handleChange} onFocus={() => { props.setActiveParagraph(props.id) }} onBlur={updateManager} />
+          <input type="text" className="tags" value={tag} onChange={handleChange} onFocus={() => { setActiveParagraph(id) }} onBlur={updateManager} />
           <div className="button_container">
             {renderSuggestionButtons}
             <button className="lock" onClick={() => { setLocked(!locked) }}>
               {displayLockIcon}
             </button>
-            <button className="remove" onClick={() => { props.removeParagraph(props.id) }}>
+            <button className="remove" onClick={() => { removeParagraph(id) }}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
@@ -120,7 +139,7 @@ function Paragraph(props) {
             style={textareaHeight}
             value={body}
             onChange={handleChange}
-            onFocus={() => { props.setActiveParagraph(props.id) }}
+            onFocus={() => { setActiveParagraph(id) }}
             onBlur={updateManager}
             onSelect={selectionManager}
           />
@@ -131,4 +150,4 @@ function Paragraph(props) {
   );
 }
 
-export default memo(Paragraph);
+export default Paragraph;

@@ -98,6 +98,7 @@ function HomeMain() {
       setProjectDetails={setProjectDetails}
       getProjectDetail={getProjectDetail}
     /> : "";
+
   const projectIcons = (projects.length > 0) ? displayIcons(projects) : "";
 
   return (

@@ -1,5 +1,6 @@
 #suggestion_container .suggestion_box{
   margin: 3vh 4vw;
+  padding: 4px;
   border: 1px solid black;
   min-width: 15vw;
   max-width: 15vw;
@@ -8,4 +9,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
